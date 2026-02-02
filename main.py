@@ -8,7 +8,7 @@ bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
 # استبدل هذا الرابط برابط الـ Render الخاص بك بعد الحصول عليه
-WEBHOOK_URL = "https://your-app-name.onrender.com" + TOKEN
+WEBHOOK_URL = "https://btc-telegram-bot-vnz4.onrender.com" + TOKEN
 
 @app.route('/' + TOKEN, methods=['POST'])
 def get_message():
@@ -60,3 +60,4 @@ if __name__ == "__main__":
     bot.remove_webhook()
     bot.set_webhook(url=WEBHOOK_URL)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 8080)))
+
