@@ -7,8 +7,8 @@ TOKEN = "8380502228:AAFQ0M1fcpPll9xCD2h9_Ce1KeCVAAjAnio"
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
-# استبدل هذا الرابط برابط الـ Render الخاص بك بعد الحصول عليه
-WEBHOOK_URL = "https://btc-telegram-bot-vnz4.onrender.com" + TOKEN
+# تأكد من استبدال الرابط الأساسي بالرابط الخاص بك الذي يوفره Render
+WEBHOOK_URL = "https://btc-telegram-bot-vnz4.onrender.com" + TOKEN 
 
 @app.route('/' + TOKEN, methods=['POST'])
 def get_message():
@@ -21,7 +21,7 @@ def get_message():
 def home():
     return "Bot is Alive!", 200
 
-# --- منطق البوت ---
+# --- منطق البوت (كما هو) ---
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     welcome_text = (
@@ -60,4 +60,3 @@ if __name__ == "__main__":
     bot.remove_webhook()
     bot.set_webhook(url=WEBHOOK_URL)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 8080)))
-
