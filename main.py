@@ -16,7 +16,7 @@ TOKEN_1 = os.environ.get('TOKEN_1') or "8380502228:AAFQ0M1fcpPll9xCD2h9_Ce1KeCVA
 bot1 = telebot.TeleBot(TOKEN_1, threaded=False)
 
 # --- البوت الثاني (صورة الذهب) ---
-TOKEN_2 = os.environ.get('TOKEN_2') or "8048111257:AAEJxPCAvkwKtVFhBxlHJsVXBJqaqYnDeO4"
+TOKEN_2 = os.environ.get('TOKEN_2') or "8742379864:AAFj8c0SgFItHbZXC_cv6SVBNvKMXHETmlo"
 bot2 = telebot.TeleBot(TOKEN_2, threaded=False)
 
 # --- Flask ---
