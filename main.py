@@ -11,25 +11,21 @@ from bidi.algorithm import get_display
 #                      إعدادات البوتين
 # ============================================================
 
-# --- البوت الأول (حاسبة BTC) ---
 TOKEN_1 = os.environ.get('TOKEN_1') or "8380502228:AAFQ0M1fcpPll9xCD2h9_Ce1KeCVAAjAnio"
 bot1 = telebot.TeleBot(TOKEN_1, threaded=False)
 
-# --- البوت الثاني (صورة الذهب) ---
 TOKEN_2 = os.environ.get('TOKEN_2') or "8742379864:AAFj8c0SgFItHbZXC_cv6SVBNvKMXHETmlo"
 bot2 = telebot.TeleBot(TOKEN_2, threaded=False)
 
-# --- Flask ---
 app = Flask(__name__)
 
-# --- رابط Render الخاص بيك ---
 BASE_URL = os.environ.get('BASE_URL') or "https://btc-telegram-bot-vnz4.onrender.com"
 
 # ============================================================
 #               Webhook Routes للبوتين
 # ============================================================
 
-@app.route('/' + TOKEN_1, methods=['POST'])
+@app.route('/webhook1', methods=['POST'])
 def webhook_bot1():
     if request.headers.get('content-type') == 'application/json':
         json_string = request.get_data().decode('utf-8')
@@ -38,7 +34,7 @@ def webhook_bot1():
         return "!", 200
     return "Error", 403
 
-@app.route('/' + TOKEN_2, methods=['POST'])
+@app.route('/webhook2', methods=['POST'])
 def webhook_bot2():
     if request.headers.get('content-type') == 'application/json':
         json_string = request.get_data().decode('utf-8')
@@ -50,9 +46,9 @@ def webhook_bot2():
 @app.route('/')
 def home():
     bot1.remove_webhook()
-    bot1.set_webhook(url=BASE_URL + '/' + TOKEN_1)
+    bot1.set_webhook(url=BASE_URL + '/webhook1')
     bot2.remove_webhook()
-    bot2.set_webhook(url=BASE_URL + '/' + TOKEN_2)
+    bot2.set_webhook(url=BASE_URL + '/webhook2')
     return "✅ كلا البوتين يعملان بنجاح!", 200
 
 # ============================================================
@@ -220,4 +216,9 @@ def handle_price(message):
 # ============================================================
 
 if __name__ == "__main__":
+    bot1.remove_webhook()
+    bot1.set_webhook(url=BASE_URL + '/webhook1')
+    bot2.remove_webhook()
+    bot2.set_webhook(url=BASE_URL + '/webhook2')
+    print("✅ Webhooks registered!")
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 8080)))
